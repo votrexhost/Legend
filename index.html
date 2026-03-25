@@ -1,0 +1,203 @@
+<link rel="stylesheet" href="style.css">
+<div class="bg-animated">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-top">
+    <h2>Menu</h2>
+    <button class="close-btn" onclick="closeMenu()">×</button>
+  </div>
+
+  <a href="#" onclick="showSection('buyRolesSection')">Buy Roles</a>
+  <a href="#" onclick="showSection('buyKeysSection')">Buy Keys</a>
+  <a href="#" onclick="showSection('balanceSection')">Balance</a>
+  <a href="#" onclick="showSection('ordersSection')">Orders</a>
+  <a href="#" onclick="showSection('supportSection')">Call Staff</a>
+  <a href="#" onclick="showSection('cartSection')">Cart <span class="mini-badge" id="cartCount">0</span></a>
+  <a href="#" onclick="showSection('accountSection')">Account</a>
+  <a href="#" onclick="logout()">Logout</a>
+
+  <div class="menu-divider" id="adminDivider" style="display:none;">Staff</div>
+  <a href="#" id="adminDashboardBtn" style="display:none;" onclick="showSection('adminDashboardSection')">Admin Dashboard</a>
+  <a href="#" id="adminLogShopBtn" style="display:none;" onclick="showSection('logShopSection')">Log Shop</a>
+  <a href="#" id="adminTicketsBtn" style="display:none;" onclick="showSection('staffTicketsSection')">Tickets</a>
+  <a href="#" id="adminAddBalanceBtn" style="display:none;" onclick="showSection('addBalanceSection')">Add Balance</a>
+  <a href="#" id="adminAddKeyBtn" style="display:none;" onclick="showSection('addKeySection')">Add Key</a>
+</aside>
+
+<header class="topbar">
+  <div class="left-head">
+    <button class="burger" onclick="openMenu()">☰</button>
+    <div class="brand">
+      <div class="logo">LC</div>
+      <div>
+        <h1>Legend Craft Store</h1>
+        <p>Official Server Store</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-head">
+    <div class="top-user" id="topUser" style="display:none;"></div>
+  </div>
+</header>
+
+<main class="container">
+  <section id="authSection" class="card auth-card fade-in">
+    <div class="tabs">
+      <button class="tab active" onclick="switchAuth('register')">Register</button>
+      <button class="tab" onclick="switchAuth('login')">Login</button>
+    </div>
+
+    <div id="registerForm">
+      <h2>Create Account</h2>
+      <p class="muted">Your account must be verified by staff before login.</p>
+      <input type="text" id="regName" placeholder="Full Name">
+      <input type="email" id="regEmail" placeholder="Email">
+      <input type="text" id="regUser" placeholder="Username">
+      <input type="password" id="regPass" placeholder="Password">
+      <button class="main-btn" onclick="register()">Register</button>
+    </div>
+
+    <div id="loginForm" style="display:none;">
+      <h2>Login</h2>
+      <input type="text" id="loginUser" placeholder="Username or Email">
+      <input type="password" id="loginPass" placeholder="Password">
+      <button class="main-btn" onclick="login()">Login</button>
+    </div>
+  </section>
+
+  <section id="homeSection" class="hero" style="display:none;">
+    <div class="hero-box fade-in">
+      <span class="badge">Legend Craft</span>
+      <h2>Welcome to the official store</h2>
+      <p>Buy roles, buy keys, manage your cart, check your balance, track orders, and contact staff.</p>
+    </div>
+  </section>
+
+  <section id="buyRolesSection" class="section" style="display:none;">
+    <h2 class="title">Buy Roles</h2>
+    <div class="store-grid" id="rolesGrid"></div>
+  </section>
+
+  <section id="buyKeysSection" class="section" style="display:none;">
+    <h2 class="title">Buy Keys</h2>
+    <div class="store-grid" id="keysGrid"></div>
+  </section>
+
+  <section id="cartSection" class="card wide-card" style="display:none;">
+    <h2>Cart</h2>
+    <div id="cartList" class="list-box"></div>
+    <div class="cart-total" id="cartTotal">Total: 0.00 Credits</div>
+    <button class="main-btn" onclick="showCheckout()">Checkout</button>
+    <button class="ghost-btn" onclick="clearCart()">Clear Cart</button>
+  </section>
+
+  <section id="checkoutSection" class="card wide-card" style="display:none;">
+    <h2>Checkout Details</h2>
+    <input type="text" id="discordName" placeholder="Your Discord Name">
+    <input type="text" id="minecraftName" placeholder="Your Minecraft Name">
+    <button class="main-btn" onclick="preparePurchase()">Continue</button>
+    <button class="ghost-btn" onclick="showSection('cartSection')">Back</button>
+  </section>
+
+  <section id="confirmSection" class="card wide-card" style="display:none;">
+    <h2>Purchase Confirmation</h2>
+    <p id="confirmText"></p>
+    <div class="two-btns">
+      <button class="main-btn" onclick="confirmPurchase()">Yes</button>
+      <button class="ghost-btn" onclick="showSection('cartSection')">Cancel</button>
+    </div>
+  </section>
+
+  <section id="balanceSection" class="card small-card" style="display:none;">
+    <h2>Your Balance</h2>
+    <div class="balance-number" id="balanceAmount">0.00 Credits</div>
+  </section>
+
+  <section id="ordersSection" class="card wide-card" style="display:none;">
+    <h2>Orders</h2>
+    <div id="ordersList" class="list-box"></div>
+  </section>
+
+  <section id="supportSection" class="card wide-card" style="display:none;">
+    <h2>Call Staff</h2>
+    <div id="supportMessages" class="chat-box"></div>
+    <input type="text" id="supportInput" placeholder="Write your message">
+    <button class="main-btn" onclick="sendSupportMessage()">Send</button>
+  </section>
+
+  <section id="accountSection" class="card wide-card" style="display:none;">
+    <div class="account-head">
+      <div class="profile-img">LC</div>
+      <div>
+        <h2>Account</h2>
+        <p class="muted">Your profile details</p>
+      </div>
+    </div>
+
+    <div id="accountInfo" class="account-info"></div>
+
+    <h3 class="sub-title">Change Password</h3>
+    <input type="password" id="newPassword" placeholder="New Password">
+    <button class="main-btn" onclick="changePassword()">Change Password</button>
+
+    <h3 class="sub-title">Purchase History</h3>
+    <div id="purchaseHistory" class="list-box"></div>
+  </section>
+
+  <section id="adminDashboardSection" class="card wide-card" style="display:none;">
+    <h2>Admin Dashboard</h2>
+    <div class="dashboard-stats" id="dashboardStats"></div>
+
+    <h3 class="sub-title">Pending Accounts</h3>
+    <div id="pendingAccountsList" class="list-box"></div>
+
+    <h3 class="sub-title">All Accounts</h3>
+    <div id="allAccountsList" class="list-box"></div>
+
+    <h3 class="sub-title">Recent Orders</h3>
+    <div id="adminRecentOrders" class="list-box"></div>
+  </section>
+
+  <section id="logShopSection" class="card wide-card" style="display:none;">
+    <h2>Log Shop</h2>
+    <div id="logShopList" class="list-box"></div>
+  </section>
+
+  <section id="staffTicketsSection" class="card wide-card" style="display:none;">
+    <h2>Tickets</h2>
+    <div id="ticketsList" class="list-box"></div>
+
+    <div id="staffReplyPanel" style="display:none;">
+      <h3 class="sub-title">Ticket Chat</h3>
+      <div id="staffTicketMessages" class="chat-box"></div>
+      <input type="text" id="staffReplyInput" placeholder="Reply to user">
+      <button class="main-btn" onclick="replyTicket()">Send Reply</button>
+    </div>
+  </section>
+
+  <section id="addBalanceSection" class="card wide-card" style="display:none;">
+    <h2>Add Balance</h2>
+    <input type="text" id="moneyUsername" placeholder="Username">
+    <input type="number" id="moneyAmount" placeholder="Amount">
+    <button class="main-btn" onclick="addBalance()">Add Balance</button>
+  </section>
+
+  <section id="addKeySection" class="card wide-card" style="display:none;">
+    <h2>Add Key</h2>
+    <input type="text" id="newKeyName" placeholder="Key Name">
+    <input type="number" id="newKeyPrice" placeholder="Key Price">
+    <button class="main-btn" onclick="addKey()">Add Key</button>
+  </section>
+
+  <div id="purchaseEffect" class="purchase-effect">Purchase Completed</div>
+  <div id="messageBox" class="message"></div>
+</main>
+<script src="script.js"></script>
